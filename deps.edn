@@ -1,0 +1,24 @@
+{:paths ["src" "res" "test"]
+ :deps {http-kit/http-kit {:mvn/version "2.8.0"}
+        com.clojure-goes-fast/clj-async-profiler {:mvn/version "99.99"}
+        nano-id/nano-id {:mvn/version "1.1.0"}
+        migratus/migratus {:mvn/version "1.5.8"}
+        org.xerial/sqlite-jdbc {:mvn/version "3.46.1.3"}
+        com.taoensso/nippy {:mvn/version "3.4.2"}
+
+        metosin/reitit-core {:mvn/version "0.7.2"}
+        metosin/reitit-ring {:mvn/version "0.7.2"}
+        metosin/reitit-middleware {:mvn/version "0.7.2"}
+        metosin/reitit-malli {:mvn/version "0.7.2"}
+
+        com.taoensso/timbre {:mvn/version "6.6.0-RC1"}
+
+        metosin/jsonista {:mvn/version "0.3.11"}
+
+        com.grammarly/omniconf {:mvn/version "0.5.2"}
+
+        hiccup/hiccup {:mvn/version "2.0.0-RC3"}
+        }}
+
+#_(find-dep metosin/reitit-core)
+#_(deps hiccup/hiccup {:mvn/version "2.0.0-RC3"})
