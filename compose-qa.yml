@@ -1,0 +1,19 @@
+version: "3.3"
+
+services:
+
+  flamebin-qa:
+    container_name: flamebin-qa
+    build:
+      context: .
+      network: host
+    environment:
+      - ENV=qa
+      - STORAGE__PATH=/storage
+      - DB__PATH=/storage/main.db
+      - SERVER__PORT=80
+    ports:
+      - "8090:80"
+    volumes:
+      - /flamebin/qa/storage:/storage
+    restart: unless-stopped
