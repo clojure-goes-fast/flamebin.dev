@@ -11,9 +11,11 @@ services:
       - --api.insecure=true
       - --providers.docker
       - --providers.docker.exposedbydefault=false
-      - --entryPoints.web.address=:81
+      - --entryPoints.web.address=:80
+    networks:
+      - shared-qa
     ports:
-      - 81:81
+      - 80:80
       # The Web UI (enabled by --api.insecure=true)
       - 127.0.0.1:8086:8080
     volumes:
@@ -24,6 +26,8 @@ services:
   flamebin-qa:
     container_name: flamebin-qa
     image: traefik/whoami:v1.8
+    networks:
+      - shared-qa
     expose:
       - 80
     ports:
@@ -65,3 +69,7 @@ services:
   #     traefik.http.routers.flamebin-qa.rule: Host(`qa.flamebin.dev`)
   #     traefik.http.routers.flamebin-qa.entrypoints: web
   #   restart: unless-stopped
+
+networks:
+  proxy:
+    name: shared-qa
