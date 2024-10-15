@@ -1,21 +1,20 @@
 version: "3.9"
 
 services:
-
   traefik:
-    image: traefik:v2.10.3
-    container_name: traefik-qa
+    image: traefik:3.1.6
+    container_name: traefik
     command:
-      - --log.level=DEBUG
-      - --accesslog=true
+      # - --log.level=DEBUG
+      # - --accesslog=true
       - --api.insecure=true
       - --providers.docker
       - --providers.docker.exposedbydefault=false
       - --entryPoints.web.address=:80
     networks:
-      - shared-qa
+      - shared
     ports:
-      - 80:80
+      - 81:81
       # The Web UI (enabled by --api.insecure=true)
       - 127.0.0.1:8086:8080
     volumes:
@@ -23,15 +22,17 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
 
+  ## QA zone
+
   flamebin-qa:
     container_name: flamebin-qa
-    image: traefik/whoami:v1.8
+    build:
+      context: ../
+      dockerfile: deploy/Dockerfile
     networks:
-      - shared-qa
+      - shared
     expose:
       - 80
-    ports:
-      - 8081:80
     environment:
       - ENV=qa
       - STORAGE__PATH=/storage
@@ -46,30 +47,6 @@ services:
       traefik.http.routers.flamebin-qa.entrypoints: web
     restart: unless-stopped
 
-  # flamebin-qa:
-  #   container_name: flamebin-qa
-  #   build:
-  #     context: ../
-  #     dockerfile: deploy/Dockerfile
-  #     network: host
-  #   expose:
-  #     - 80
-  #   ports:
-  #     - 8081:80
-  #   environment:
-  #     - ENV=qa
-  #     - STORAGE__PATH=/storage
-  #     - DB__PATH=/storage/main.db
-  #     - SERVER__PORT=80
-  #   volumes:
-  #     - /flamebin/qa/storage:/storage
-  #   labels:
-  #     traefik.enable: true
-  #     traefik.http.services.flamebin-qa.loadbalancer.server.port: 80
-  #     traefik.http.routers.flamebin-qa.rule: Host(`qa.flamebin.dev`)
-  #     traefik.http.routers.flamebin-qa.entrypoints: web
-  #   restart: unless-stopped
-
 networks:
-  shared-qa:
-    name: shared-qa
+  shared:
+    name: shared
