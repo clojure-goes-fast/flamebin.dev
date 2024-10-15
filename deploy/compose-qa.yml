@@ -35,6 +35,6 @@ services:
     labels:
       traefik.enable: true
       traefik.http.services.flamebin.loadbalancer.server.port: 80
-      traefik.http.routers.plex.rule: Host(`qa.flamebin.dev`)
-      traefik.http.routers.plex.entrypoints: web
+      traefik.http.routers.flamebin.rule: Host(`qa.flamebin.dev`)
+      traefik.http.routers.flamebin.entrypoints: web
     restart: unless-stopped
