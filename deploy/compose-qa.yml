@@ -6,14 +6,14 @@ services:
     image: traefik:v2.10.3
     container_name: traefik-qa
     command:
-      # - "--api.insecure=true"
+      - "--api.insecure=true"
       - "--providers.docker"
       - "--providers.docker.exposedbydefault=false"
       - "--entryPoints.web.address=:80"
     ports:
       - "81:80"
       # The Web UI (enabled by --api.insecure=true)
-      # - "8080:8080"
+      - "8081:localhost:8080"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
