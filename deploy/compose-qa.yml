@@ -25,6 +25,8 @@ services:
       context: ../
       dockerfile: deploy/Dockerfile
       network: host
+    expose:
+      - 80
     environment:
       - ENV=qa
       - STORAGE__PATH=/storage
