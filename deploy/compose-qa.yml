@@ -2,6 +2,23 @@ version: "3.3"
 
 services:
 
+  traefik:
+    image: traefik:v2.10.3
+    container_name: traefik-qa
+    command:
+      # - "--api.insecure=true"
+      - "--providers.docker"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.web.address=:81"
+    ports:
+      - "81:81"
+      # The Web UI (enabled by --api.insecure=true)
+      # - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
   flamebin-qa:
     container_name: flamebin-qa
     build:
@@ -13,8 +30,11 @@ services:
       - STORAGE__PATH=/storage
       - DB__PATH=/storage/main.db
       - SERVER__PORT=80
-    ports:
-      - "81:80"
     volumes:
       - /flamebin/qa/storage:/storage
+    labels:
+      traefik.enable: true
+      traefik.http.services.flamebin.loadbalancer.server.port: 80
+      traefik.http.routers.plex.rule: Host(`qa.flamebin.dev`)
+      traefik.http.routers.plex.entrypoints: web
     restart: unless-stopped
