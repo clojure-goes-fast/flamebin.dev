@@ -71,5 +71,5 @@ services:
   #   restart: unless-stopped
 
 networks:
-  proxy:
+  shared-qa:
     name: shared-qa
