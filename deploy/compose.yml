@@ -36,7 +36,7 @@ services:
     environment:
       - ENV=qa
       - STORAGE__PATH=/storage
-      - DB__PATH=/storage/main.db
+      - DB__PATH=/storage/db/main.db
       - SERVER__PORT=80
     volumes:
       - /flamebin/qa/storage:/storage
