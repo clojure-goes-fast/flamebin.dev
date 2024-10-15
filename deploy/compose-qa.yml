@@ -5,7 +5,8 @@ services:
   flamebin-qa:
     container_name: flamebin-qa
     build:
-      context: .
+      context: ../
+      dockerfile: deploy/Dockerfile
       network: host
     environment:
       - ENV=qa
@@ -13,7 +14,7 @@ services:
       - DB__PATH=/storage/main.db
       - SERVER__PORT=80
     ports:
-      - "8090:80"
+      - "81:80"
     volumes:
       - /flamebin/qa/storage:/storage
     restart: unless-stopped
