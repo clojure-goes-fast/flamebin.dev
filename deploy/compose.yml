@@ -14,7 +14,7 @@ services:
     networks:
       - shared
     ports:
-      - 81:81
+      - 80:80
       # The Web UI (enabled by --api.insecure=true)
       - 127.0.0.1:8086:8080
     volumes:
