@@ -9,9 +9,9 @@ services:
       # - "--api.insecure=true"
       - "--providers.docker"
       - "--providers.docker.exposedbydefault=false"
-      - "--entryPoints.web.address=:81"
+      - "--entryPoints.web.address=:80"
     ports:
-      - "81:81"
+      - "81:80"
       # The Web UI (enabled by --api.insecure=true)
       # - "8080:8080"
     volumes:
