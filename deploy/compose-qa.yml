@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.9"
 
 services:
 
@@ -23,10 +23,7 @@ services:
 
   flamebin-qa:
     container_name: flamebin-qa
-    build:
-      context: ../
-      dockerfile: deploy/Dockerfile
-      network: host
+    image: traefik/whoami:v1.8
     expose:
       - 80
     ports:
@@ -44,3 +41,27 @@ services:
       traefik.http.routers.flamebin-qa.rule: Host(`qa.flamebin.dev`)
       traefik.http.routers.flamebin-qa.entrypoints: web
     restart: unless-stopped
+
+  # flamebin-qa:
+  #   container_name: flamebin-qa
+  #   build:
+  #     context: ../
+  #     dockerfile: deploy/Dockerfile
+  #     network: host
+  #   expose:
+  #     - 80
+  #   ports:
+  #     - 8081:80
+  #   environment:
+  #     - ENV=qa
+  #     - STORAGE__PATH=/storage
+  #     - DB__PATH=/storage/main.db
+  #     - SERVER__PORT=80
+  #   volumes:
+  #     - /flamebin/qa/storage:/storage
+  #   labels:
+  #     traefik.enable: true
+  #     traefik.http.services.flamebin-qa.loadbalancer.server.port: 80
+  #     traefik.http.routers.flamebin-qa.rule: Host(`qa.flamebin.dev`)
+  #     traefik.http.routers.flamebin-qa.entrypoints: web
+  #   restart: unless-stopped
