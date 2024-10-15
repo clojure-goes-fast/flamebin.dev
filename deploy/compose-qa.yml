@@ -6,11 +6,12 @@ services:
     image: traefik:v2.10.3
     container_name: traefik-qa
     command:
-      - "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--providers.docker"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entryPoints.web.address=:81"
+      - --log.level=DEBUG
+      - --accesslog=true
+      - --api.insecure=true
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --entryPoints.web.address=:81
     ports:
       - 81:81
       # The Web UI (enabled by --api.insecure=true)
